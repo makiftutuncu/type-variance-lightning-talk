@@ -1,5 +1,7 @@
 package com.vngrs.ligthningtalk.typevariance
 
+import com.vngrs.ligthningtalk.typevariance.typeclasses.Read
+
 sealed trait Json { self =>
   def as[A](implicit reader: Read[A]): A = reader.read(self)
 

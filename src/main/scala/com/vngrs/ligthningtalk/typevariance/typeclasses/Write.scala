@@ -1,4 +1,6 @@
-package com.vngrs.ligthningtalk.typevariance
+package com.vngrs.ligthningtalk.typevariance.typeclasses
+
+import com.vngrs.ligthningtalk.typevariance._
 
 trait Write[-A] {
   def write(a: A): Json

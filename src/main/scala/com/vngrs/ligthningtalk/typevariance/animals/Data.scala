@@ -1,4 +1,6 @@
-package com.vngrs.ligthningtalk.typevariance
+package com.vngrs.ligthningtalk.typevariance.animals
+
+import com.vngrs.ligthningtalk.typevariance.{JBool, JNum, JObj, JStr}
 
 object Data {
   val cat  = Cat("Cookie", "grey")

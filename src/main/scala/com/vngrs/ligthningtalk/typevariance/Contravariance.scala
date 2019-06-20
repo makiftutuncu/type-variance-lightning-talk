@@ -1,5 +1,8 @@
 package com.vngrs.ligthningtalk.typevariance
 
+import com.vngrs.ligthningtalk.typevariance.animals.{Animal, Bird, Data}
+import com.vngrs.ligthningtalk.typevariance.typeclasses.Write
+
 object Contravariance {
   def write[A <: Animal](a: A, w: Write[A]): Json = w.write(a)
 

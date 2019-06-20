@@ -1,5 +1,8 @@
 package com.vngrs.ligthningtalk.typevariance
 
+import com.vngrs.ligthningtalk.typevariance.animals.{Animal, Cat, Data}
+import com.vngrs.ligthningtalk.typevariance.typeclasses.Show
+
 object Invariance {
   def show[A <: Animal](a: A, s: Show[A]): String = s.show(a)
 
