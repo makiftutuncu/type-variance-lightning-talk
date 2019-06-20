@@ -4,6 +4,9 @@ import com.vngrs.ligthningtalk.typevariance._
 
 trait Read[+A] {
   def read(j: Json): A
+
+  // Does not compile because `A` is covariant and here it is in contravariant position
+  // def test(a: A): Unit
 }
 
 object Read {

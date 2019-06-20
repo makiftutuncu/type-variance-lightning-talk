@@ -4,6 +4,9 @@ import com.vngrs.ligthningtalk.typevariance._
 
 trait Write[-A] {
   def write(a: A): Json
+
+  // Does not compile because `A` is contravariant and here it is in covariant position
+  // def test: A
 }
 
 object Write {
