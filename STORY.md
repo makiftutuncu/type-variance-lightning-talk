@@ -6,7 +6,7 @@ Types can have relations. A type can extend one or more types so that it has all
 
 Just like classes, methods and functions, types can also take parameters in Scala.
 
-`Option` is an example of a type that takes a type parameter. It represents values that can exist or not. Think of it as a safer way to deal with null values. Here is a not-so-accurate, simpler definition:
+`Option` is an example of this. It represents values that can exist or not. Think of it as a safer way to deal with null values. Here is a not-so-accurate, simpler definition:
 
 ```scala
 trait Option[A] {
@@ -46,7 +46,7 @@ This is because type parameter `A` is in **invariant** position in type construc
 
 #### 2. Covariance
 
-Covariance incurs a same way relationship between the type parameters to the type built by the type constructor. Here is an example:
+Covariance incurs a same-way relationship between the type parameters to the type built by the type constructor. Here is an example:
 
 ```scala
 class Y
