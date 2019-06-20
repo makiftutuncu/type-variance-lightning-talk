@@ -1,7 +1,7 @@
 package com.vngrs.ligthningtalk.typevariance
 
 sealed trait Json { self =>
-  def as[A](implicit reader: Reader[A]): Option[A] = reader.read(self)
+  def as[A](implicit reader: Read[A]): A = reader.read(self)
 
   def show: String
 

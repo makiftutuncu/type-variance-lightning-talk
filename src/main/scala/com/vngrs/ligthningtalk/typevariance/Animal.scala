@@ -2,73 +2,65 @@ package com.vngrs.ligthningtalk.typevariance
 
 trait Animal {
   val name: String
-
-  override def toString: String = s"Animal named $name"
 }
 
 object Animal {
-  val reader: Reader[Animal] = { json =>
-    for {
-      map <- json.as[Map[String, Json]]
-      n   <- map.get("name").flatMap(_.as[String])
-    } yield {
-      new Animal { override val name: String = n }
-    }
+  val read: Read[Animal] = { json =>
+    val map = json.as[Map[String, Json]]
+    val n   = map.getOrElse("name", throw new Exception(s"No 'name' in $json")).as[String]
+
+    new Animal { override val name: String = n }
   }
 
-  val writer: Writer[Animal] = (a: Animal) => JObj(Map("name" -> JStr(a.name)))
+  val write: Write[Animal] = (a: Animal) => JObj(Map("name" -> JStr(a.name)))
+
+  val show: Show[Animal] = (a: Animal) => s"Animal named ${a.name}"
 }
 
-case class Cat(override val name: String, fur: String) extends Animal {
-  override def toString: String = s"Cat named $name with $fur fur"
-}
+case class Cat(override val name: String, fur: String) extends Animal
 
 object Cat {
-  val reader: Reader[Cat] = { json =>
-    for {
-      map  <- json.as[Map[String, Json]]
-      name <- map.get("name").flatMap(_.as[String])
-      fur  <- map.get("fur").flatMap(_.as[String])
-    } yield {
-      Cat(name, fur)
-    }
+  val read: Read[Cat] = { json =>
+    val map  = json.as[Map[String, Json]]
+    val name = map.getOrElse("name", throw new Exception(s"No 'name' in $json")).as[String]
+    val fur  = map.getOrElse("fur", throw new Exception(s"No 'fur' in $json")).as[String]
+
+    Cat(name, fur)
   }
 
-  val writer: Writer[Cat] = (c: Cat) => JObj(Map("name" -> JStr(c.name), "fur" -> JStr(c.fur)))
+  val write: Write[Cat] = (c: Cat) => JObj(Map("name" -> JStr(c.name), "fur" -> JStr(c.fur)))
+
+  val show: Show[Cat] = (c: Cat) => s"Cat named ${c.name} with ${c.fur} fur"
 }
 
-case class Bird(override val name: String, age: Int) extends Animal {
-  override def toString: String = s"$age year(s) old bird named $name"
-}
+case class Bird(override val name: String, age: Int) extends Animal
 
 object Bird {
-  val reader: Reader[Bird] = { json =>
-    for {
-      map  <- json.as[Map[String, Json]]
-      name <- map.get("name").flatMap(_.as[String])
-      age  <- map.get("age").flatMap(_.as[BigDecimal])
-    } yield {
-      Bird(name, age.intValue)
-    }
+  val read: Read[Bird] = { json =>
+    val map  = json.as[Map[String, Json]]
+    val name = map.getOrElse("name", throw new Exception(s"No 'name' in $json")).as[String]
+    val age  = map.getOrElse("age", throw new Exception(s"No 'age' in $json")).as[BigDecimal]
+
+    Bird(name, age.intValue)
   }
 
-  val writer: Writer[Bird] = (b: Bird) => JObj(Map("name" -> JStr(b.name), "age" -> JNum(b.age)))
+  val write: Write[Bird] = (b: Bird) => JObj(Map("name" -> JStr(b.name), "age" -> JNum(b.age)))
+
+  val show: Show[Bird] = (b: Bird) => s"${b.age} year(s) old bird named ${b.name}"
 }
 
-case class Fish(override val name: String, male: Boolean) extends Animal {
-  override def toString: String = s"${if (male) "Male" else "Female"} fish named $name"
-}
+case class Fish(override val name: String, male: Boolean) extends Animal
 
 object Fish {
-  val reader: Reader[Fish] = { json =>
-    for {
-      map  <- json.as[Map[String, Json]]
-      name <- map.get("name").flatMap(_.as[String])
-      male <- map.get("male").flatMap(_.as[Boolean])
-    } yield {
-      Fish(name, male)
-    }
+  val read: Read[Fish] = { json =>
+    val map  = json.as[Map[String, Json]]
+    val name = map.getOrElse("name", throw new Exception(s"No 'name' in $json")).as[String]
+    val male = map.getOrElse("male", throw new Exception(s"No 'male' in $json")).as[Boolean]
+
+    Fish(name, male)
   }
 
-    val writer: Writer[Fish] = (f: Fish) => JObj(Map("name" -> JStr(f.name), "male" -> JBool(f.male)))
+  val write: Write[Fish] = (f: Fish) => JObj(Map("name" -> JStr(f.name), "male" -> JBool(f.male)))
+
+  val show: Show[Fish] = (f: Fish) => s"${if (f.male) "Male" else "Female"} fish named ${f.name}"
 }

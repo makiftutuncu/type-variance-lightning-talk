@@ -1,5 +1,5 @@
 package com.vngrs.ligthningtalk.typevariance
 
-trait Shower[A] {
+trait Show[A] {
   def show(a: A): String
 }
