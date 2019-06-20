@@ -2,6 +2,8 @@
 
 This repository contains the code from my Lightning Talk about type variance in Scala [@vngrs](https://github.com/vngrs).
 
+See the [story](STORY.md)
+
 ### Build, Develop, Test, Run
 
 This is an SBT project, so the usual
@@ -15,3 +17,4 @@ will do.
 ### License
 
 No license
+
